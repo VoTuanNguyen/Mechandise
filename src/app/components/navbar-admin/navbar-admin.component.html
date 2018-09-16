@@ -1,0 +1,279 @@
+<nav class="navbar navbar-default" style="background-color: #fff; border-bottom: 5px solid #cfae78; margin-bottom: 0px;">
+  <div class="header__topBar">
+    <div class="topContact">
+      <p>Hotline: 0901 755 956</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="navbar-header">
+      <div class="hd-logo">
+        <a href="/" class="align-items--center">
+          <img src="assets/images/logo.png" alt="Cà phê nguyên chất hàng đầu Buôn Ma Thuột">
+          <div class="hd-logo__name">
+            <p>Showroom CaFe</p>
+            <p style="color:black">Trần Nhân</p>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse" style="margin-top: 35px; font-size: 16px;">
+      <ul class="nav navbar-nav">
+        <li style="margin-left: 50px;">
+          <a title="Trang chủ" href="/">Trang chủ</a>
+        </li>
+        <li>
+          <a title="Đơn hàng đã đặt" (click)="showOrder()" data-toggle="modal" data-target="#order" style="cursor: pointer;">Đơn hàng đã đặt</a>
+        </li>
+        <li>
+          <a title="Đơn hàng đang xử lý" data-toggle="modal" data-target="#orderonduty" style="cursor: pointer;">Đơn hàng đang xử lý</a>
+        </li>
+        <li>
+          <a title="Lịch sử" data-toggle="modal" data-target="#history" style="cursor: pointer;">Lịch sử</a>
+        </li>
+        <li>
+          <a title="Thêm sản phẩm mới" data-toggle="modal" data-target="#addproduct" style="cursor: pointer;">Thêm sản phẩm mới</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div id="order" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Đơn hàng đã đặt</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <tr>
+            <th>Mã HĐ</th>
+            <th>Tên khách hàng</th>
+            <th>Email</th>
+            <th>Số điện thoại</th>
+            <th>Mô tả đơn hàng</th>
+            <th>Địa chỉ</th>
+            <th>Ngày</th>
+            <th>Thành tiền</th>
+            <th></th>
+            <th></th>
+          </tr>
+          <tr *ngFor="let tmp of order">
+            <td>{{tmp.id}}</td>
+            <td>{{tmp.tenkh}}</td>
+            <td>{{tmp.email}}</td>
+            <td>{{tmp.sodt}}</td>
+            <td>{{tmp.motadonhang}}</td>
+            <td>{{tmp.diachi}}</td>
+            <td>{{tmp.ngay}}</td>
+            <td>{{formatNumber(tmp.thanhtien)}}</td>
+            <td><a title="Tiến hành giao hàng" style="text-decoration: none; cursor: pointer;" (click)="onDuty(tmp.id)"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></td>
+            <td><a title="Xóa đơn hàng" style="text-decoration: none; cursor: pointer;" (click)="onDelete(tmp.id)"><i class="fa fa-remove" aria-hidden="true"></i></a></td>                        
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="orderonduty" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Đơn hàng đang được xử lý</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <tr>
+            <th>Mã HĐ</th>
+            <th>Tên khách hàng</th>
+            <th>Email</th>
+            <th>Số điện thoại</th>
+            <th>Mô tả đơn hàng</th>
+            <th>Địa chỉ</th>
+            <th>Ngày</th>
+            <th>Thành tiền</th>
+            <th></th>
+          </tr>
+          <tr *ngFor="let tmp of order_onduty">
+            <td>{{tmp.id}}</td>
+            <td>{{tmp.tenkh}}</td>
+            <td>{{tmp.email}}</td>
+            <td>{{tmp.sodt}}</td>
+            <td>{{tmp.motadonhang}}</td>
+            <td>{{tmp.diachi}}</td>
+            <td>{{tmp.ngay}}</td>
+            <td>{{formatNumber(tmp.thanhtien)}}</td>
+            <td><a title="Hoàn thành đơn hàng" style="text-decoration: none; cursor: pointer;" (click)="onSuccess(tmp.id)"><i class="fa fa-check" aria-hidden="true"></i></a></td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="history" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Lịch sử các đơn hàng đã hoàn thành</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row" style="margin-bottom: 20px;">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-2">
+            <input type="date" [(ngModel)]="start_day" name="startday" class="form-control">
+          </div>
+          <div class="col-sm-2">
+            <input type="date" [(ngModel)]="end_day" name="endday" class="form-control">
+          </div>
+          <div class="col-sm-2">
+            <button class="btn btn-primary btn-block" (click)="filter()">Lọc</button>
+          </div>
+        </div>
+        <table class="table">
+          <tr>
+            <th>Mã HĐ</th>
+            <th>Tên khách hàng</th>
+            <th>Email</th>
+            <th>Số điện thoại</th>
+            <th>Mô tả đơn hàng</th>
+            <th>Địa chỉ</th>
+            <th>Ngày</th>
+            <th>Thành tiền</th>
+            <th></th>
+          </tr>
+          <tr *ngFor="let tmp of order_history">
+            <td>{{tmp.id}}</td>
+            <td>{{tmp.tenkh}}</td>
+            <td>{{tmp.email}}</td>
+            <td>{{tmp.sodt}}</td>
+            <td>{{tmp.motadonhang}}</td>
+            <td>{{tmp.diachi}}</td>
+            <td>{{tmp.ngay}}</td>
+            <td>{{formatNumber(tmp.thanhtien)}}</td>
+            <td><a title="Xóa lịch sử đơn hàng" style="text-decoration: none; cursor: pointer;" (click)="onDelete(tmp.id)"><i class="fa fa-remove" aria-hidden="true"></i></a></td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="addproduct" class="modal fade" role="dialog">
+  <div class="modal-dialog" style="width: 70%">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Thêm sản phẩm mới</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row info">
+          <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-2">
+              <b>Ảnh sản phẩm</b>
+            </div>
+            <div class="col-sm-7">
+              <div class="row" style="padding: 10px;">
+                <input style="display: none;" type="file" accept="image/*" (change)="onFileSelect($event.target.files)" #fileInput>
+                <div class="col-sm-12 upload" style="cursor: pointer;">
+                  <img (click)="fileInput.click()" src="{{avatar}}" alt="Tải ảnh lên" title="Nhấn vào để thay đổi ảnh đại diện" class="img-thumbnail"
+                    style="height: 300px; width:300px;">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-2">
+              <b>Mã sản phẩm</b>
+            </div>
+            <div class="col-sm-7">
+              <input type="text" [(ngModel)]="masp" name="masp" class="form-control" placeholder="Nhập mã sản phẩm">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-2">
+              <b>Tên sản phẩm</b>
+            </div>
+            <div class="col-sm-7">
+              <input type="text" [(ngModel)]="tensp" name="tensp" class="form-control" placeholder="Nhập tên sản phẩm">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-2">
+              <b>Giá bán</b>
+            </div>
+            <div class="col-sm-7">
+              <input type="number" [(ngModel)]="gia" class="form-control">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-2">
+              <b>Loại sản phẩm</b>
+            </div>
+            <div class="col-sm-7">
+              <select class="form-control" (change)="changeTypeProduct($event.target.value)">
+                <option value="1">Cà phê hạt</option>
+                <option value="2">Cà phê xay</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-2">
+              <b>Đơn vị</b>
+            </div>
+            <div class="col-sm-7">
+              <input type="text" [(ngModel)]="donvi" class="form-control" placeholder="Nhập đơn vị">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-2">
+              <b>Ưu đãi</b>
+            </div>
+            <div class="col-sm-7">
+              <textarea rows="3" class="form-control" [(ngModel)]="uudai" placeholder="Nhập ưu đãi(nếu có)"></textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-2">
+              <b>Mô tả sản phẩm</b>
+            </div>
+            <div class="col-sm-8">
+              <ck-editor name="editor1" [(ngModel)]="mota" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor>
+            </div>
+          </div>
+          <div class="row" style="text-align: center;">
+            <button class="btn btn-primary" (click)="addProduct()">Thêm sản phẩm</button>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>

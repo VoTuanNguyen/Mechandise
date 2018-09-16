@@ -1,0 +1,109 @@
+body {
+    font-family: Arial,Helvetica,Arial,sans-serif;
+    line-height: 1.53061225;
+    color: #222;
+    font-size: 1.4rem;
+}
+#navbar li:hover .sm-nowrap {
+    display: block;
+    font-size: 16px;
+    border-top: 5px solid #cfae78;
+}
+.sm-nowrap li:hover a{
+    color: #f78708;
+    background: transparent;
+}
+.sm-nowrap li:hover a::before{
+    content: "\27A4";
+    color: #f78708;
+    font-family: FontAwesome;
+    font-size: .85em;
+    position: absolute;
+    left: 5px;
+    margin-right: 5px;
+    margin-top: 2px;
+}
+.hd-logo {
+    float: left;
+    line-height: 0;
+    margin: 15px 0 15px;
+}
+.align-items--center {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+.hd-logo img {
+    height: 70px;
+    float: left;
+}
+.hd-logo__name {
+    text-transform: uppercase;
+    float: left;
+    margin-left: 15px;
+}
+.hd-logo__name p:first-child {
+    border-bottom: 1px solid rgb(19, 18, 18);
+    font-family: Play;
+    color: #fd102a;
+    font-size: 22px;
+    padding-top: 0;
+    padding-bottom: 7px;
+}
+.hd-logo__name p {
+    margin-bottom: 0;
+    line-height: 1;
+    text-align: center;
+    font-family: Play;
+    font-size: 22px;
+    letter-spacing: 1px;
+    padding-top: 8px;
+}
+#navbar>ul>li>a{
+    text-transform: none;
+}
+.header__topBar {
+    background: #fff;
+    border-top: 5px solid #cfae78;
+    width: 100%;
+}
+.topContact {
+    background: #cfae78;
+    color: #fff;
+    float: right;
+    font-size: 15px;
+    height: 23px;
+    line-height: 18px;
+    padding-left: 10px;
+    padding-right: 78px;
+    position: relative;
+}
+.topContact:before {
+    border-color: #cfae78 transparent transparent;
+    border-style: solid;
+    border-width: 23px 0 0 23px;
+    content: '';
+    left: -23px;
+    position: absolute;
+}
+table {
+    border-collapse: collapse;
+}
+
+table, td, th {
+    border: 1px solid black;
+    text-align: center;
+    font-size: 16px;
+}
+.info .row{
+    padding: 5px;
+}
+.table>tbody>tr>th{
+    border-top: 1px solid black;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}

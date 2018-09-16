@@ -1,0 +1,242 @@
+<title>Trang chủ</title>
+<div style="height: 500px; border-bottom: 5px solid #cfae78;">
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+      <li data-target="#myCarousel" data-slide-to="3"></li>
+      <li data-target="#myCarousel" data-slide-to="4"></li>
+      <li data-target="#myCarousel" data-slide-to="5"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      <div class="item active">
+        <img src="assets/images/slide_1.jpg" alt="Cà phê" style="width:100%; height: 495px;">
+      </div>
+
+      <div class="item">
+        <img src="assets/images/slide_2.jpg" alt="Cà phê" style="width:100%;; height: 495px;">
+      </div>
+
+      <div class="item">
+        <img src="assets/images/slide_3.jpg" alt="Cà phê" style="width:100%;; height: 495px;">
+      </div>
+
+      <div class="item active">
+        <img src="assets/images/slide_4.jpg" alt="Cà phê" style="width:100%; height: 495px;">
+      </div>
+      
+      <div class="item">
+        <img src="assets/images/slide_5.jpg" alt="Cà phê" style="width:100%;; height: 495px;">
+      </div>
+      
+      <div class="item">
+        <img src="assets/images/slide_6.jpg" alt="Cà phê" style="width:100%;; height: 495px;">
+      </div>
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+
+<div class="row col-8 col-md-8 col-sm-9 centered product">
+  <div class="col-3 col-md-5 col-sm-6 col-xs-6">
+    <div class="product-card">
+      <div class="product-card__content">
+        <div class="product-card__img">
+          <img style="width: 100%" src="./assets/images/icon-cafehat.jpg" alt="Cà phê hạt">
+        </div>
+        <div class="product-card__name text-center">
+          <a style="color: #fff; text-decoration: none;" href="{{linkcafehat}}">Cà phê hạt</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-3 col-md-2 col-sm-6 col-xs-6"></div>
+  <div class="col-3 col-md-5 col-sm-6 col-xs-6">
+    <div class="product-card">
+      <div class="product-card__content">
+        <div class="product-card__img">
+          <img style="width: 100%" src="./assets/images/icon-cafexay.jpg" alt="Cà phê xay">
+        </div>
+        <div class="product-card__name text-center">
+          <a style="color: #fff; text-decoration: none;" href="{{linkcafexay}}">Cà phê xay</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" style="min-height: 500px; margin-top: 10px; position: relative; border-right: 2px solid black; border-top: 2px solid black;">
+  <div *ngIf="!isLoading" class="row">
+    <div class="row">
+      <div class="col-sm-3">
+        <p class="name_product">
+          <a title="Xem tất cả sản phẩm" href="{{linkcafehat}}" style="text-decoration: none; color: rgb(10, 10, 10);">Cà phê hạt</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="outer" style="text-align: center; width: 100%;" *ngIf="isEmpty_Hat">
+      <h1>Chưa có dữ liệu!</h1>
+    </div>
+
+    <div class="container">
+      <div class="col-md-3 col-sm-3" style="margin-bottom: 20px;" *ngFor="let sp of product_hat">
+        <div class="avatar">
+          <img src="{{ sp.avatar }}" style="height: 300px; width: 250px;" class="img-rounded avatar-product">
+          <div class="middle">
+            <div class="text">
+              <button (click)="show(sp.id)" data-target="#detailnews" data-toggle="modal" class="btn btn-primary btn-block">Xem chi tiết</button>
+            </div>
+          </div>
+        </div>
+        <h4 class="title" (click)="show(sp.id)" title="{{sp.tensp}}" style="text-align: center; margin-top: 10px;" data-target="#detailnews"
+          data-toggle="modal">{{ sp.tensp }}</h4>
+        <div class="price">
+          <h5 style="text-align: center; font-size: 16px;">
+            <img src="assets/images/icon_price.png" alt="Giá" style="height: 25px; width: 25px;">
+            <strong>{{ formatNumber(sp.gia) }}<sup>vnđ</sup>
+            </strong>
+          </h5>
+        </div>
+        <div class="row">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-6">
+            <button (click)="addCart(sp.id, sp.tensp, sp.gia, true)" style="cursor: pointer;" class="btn btn-danger btn-block">MUA NGAY</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row viewall" [hidden]="isEmpty_Hat" style="width: 100%; border-bottom: 2px solid black; margin-left: 0px;">
+        <a href="{{linkcafehat}}">
+          <i class="fa fa-angle-double-right" aria-hidden="true"></i> Xem tất cả</a>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3">
+        <p class="name_product">
+          <a title="Xem tất cả sản phẩm" href="{{linkcafexay}}" style="text-decoration: none; color: rgb(10, 10, 10);">Cà phê xay</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="outer" style="text-align: center; width: 100%;" *ngIf="isEmpty_Xay">
+      <h1>Chưa có dữ liệu!</h1>
+    </div>
+
+    <div class="container">
+      <div class="col-md-3 col-sm-3" style="margin-bottom: 20px;" *ngFor="let sp of product_xay">
+        <div class="avatar">
+          <img src="{{ sp.avatar }}" style="height: 300px; width: 250px;" class="img-rounded avatar-product">
+          <div class="middle">
+            <div class="text">
+              <button (click)="show(sp.id)" data-target="#detailnews" data-toggle="modal" class="btn btn-primary btn-block">Xem chi tiết</button>
+            </div>
+          </div>
+        </div>
+        <h4 class="title" (click)="show(sp.id)" title="{{sp.tensp}}" style="text-align: center; margin-top: 10px;" data-target="#detailnews"
+          data-toggle="modal">{{ sp.tensp }}</h4>
+        <div class="price">
+          <h5 style="text-align: center; font-size: 16px;">
+            <img src="assets/images/icon_price.png" alt="Giá" style="height: 25px; width: 25px;">
+            <strong>{{ formatNumber(sp.gia) }}<sup>vnđ</sup>
+            </strong>
+          </h5>
+        </div>
+        <div class="row">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-6">
+            <button (click)="addCart(sp.id, sp.tensp, sp.gia, true)" style="cursor: pointer;" class="btn btn-danger btn-block">MUA NGAY</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row viewall" [hidden]="isEmpty_Xay" style="width: 100%; border-bottom: 2px solid black; margin-left: 0px;">
+        <a href="{{linkcafexay}}">
+          <i class="fa fa-angle-double-right" aria-hidden="true"></i> Xem tất cả</a>
+    </div>
+
+  </div>
+</div>
+<div id="detailnews" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 *ngIf="isDetail" class="modal-title">
+          <strong style="text-transform: uppercase;">{{details.tensp}}</strong>
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-5" *ngIf="isDetail">
+            <img src="{{details.avatar}}" alt="ảnh" class="img-rounded" style="height: 330px; width: 330px;">
+          </div>
+          <div class="col-sm-5 content-detail" style="font-size: 16px;">
+            <div class="row" *ngIf="isDetail">
+              <h3 style="color: red;">{{details.tensp}}</h3>
+            </div>
+            <div class="row" *ngIf="isDetail&&details.loaisp === '1'">
+              <b>Loại sản phẩm:</b> Cà phê hạt</div>
+            <div class="row" *ngIf="isDetail&&details.loaisp === '2'">
+              <b>Loại sản phẩm:</b> Cà phê xay</div>
+            <div class="row" *ngIf="isDetail">
+              <b>Giá bán:</b> {{formatNumber(details.gia)}}<sup>vnđ</sup>
+            </div>
+            <div class="row" *ngIf="isDetail">
+                <b>Quy cách:</b> 1 {{details.donvi}}</div>
+            <div class="row" *ngIf="isDetail">
+              <div *ngIf="details.uudai.length!==0">
+                <b>Ưu đãi:</b> {{details.uudai}}</div>
+            </div>
+            <div class="row" style="color: red;">
+              <p>Miễn phí vận chuyển trong khu vực Bình Dương</p>
+            </div>
+            <div class="row">
+              <b>Số lượng:</b>&nbsp;
+              <input type="number" [(ngModel)]="soluong" style="text-align: center; width: 50px; border-radius: 5px;" value="1" name="soluong"
+                min="1" max="100">
+            </div>
+            <div class="row">
+              <button style="width: 120px; margin-top: 10px;" class="btn btn-danger btn-block" (click)="addCart(details.id, details.tensp, details.gia, false)">Thêm vào giỏ</button>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-10">
+            <div class="row" style="text-align: center;">
+              <h4>
+                <b>Thông tin sản phẩm</b>
+              </h4>
+            </div>
+            <div class="row">
+              <div id="decribes" style="font-size: 16px;"></div>
+            </div>
+          </div>
+          <div class="col-sm-1"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button data-dismiss="modal" class="btn btn-primary">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="loader" *ngIf="isLoading" style="position: fixed; top: 50%; left: 45%"></div>
